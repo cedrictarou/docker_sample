@@ -1,0 +1,25 @@
+version: '3.4'
+
+services:
+  my_mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: my_mysql_db
+    ports:
+      - '3300:3300'
+    #第３の場所my_volumeをコンテナ内に同期するコードを追加
+    volumes:
+      - my_volume:/var/lib/mysql
+
+  dockerexpress:
+    image: dockerexpress
+    build:
+      context: dockerExpress
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+
+#第3の場所にデータを置いておく場所をつくる
+volumes: 
+  my_volume:
